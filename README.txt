@@ -2,7 +2,7 @@ Terrastore
 -----
 
 Terrastore is a modern document store which provides advanced scalability and elasticity features without sacrificing consistency.
-Web: http://code.google.com/p/terrastore/
+Web: http://sleipnir.github.io/Terrastore
 
 Basic Operations Guide
 -----
