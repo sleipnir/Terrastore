@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Terrastore by sleipnir</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/sleipnir/Terrastore">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/sleipnir/Terrastore/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/sleipnir/Terrastore/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Terrastore</h1>
+          <p>Terrastore is a modern document store which provides advanced scalability and elasticity features without sacrificing consistency.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/sleipnir">sleipnir</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h2>
+<a name="" class="anchor" href="#"><span class="octicon octicon-link"></span></a><img alt="">
+</h2>
+
+<h2>
+<a name="basic-operations-guide" class="anchor" href="#basic-operations-guide"><span class="octicon octicon-link"></span></a>Basic Operations Guide</h2>
+
+<p>A Terrastore cluster is composed by two different kind of processes: Terrastore master(s), and Terrastore server(s).
+Both can be easily installed through the terrastore-install tool. </p>
+
+<ul>
+<li>Prerequisites:</li>
+</ul><p>Java 6.
+Apache Ant.</p>
+
+<ul>
+<li>Single-master Terrastore cluster installation:</li>
+</ul><p>$&gt; ant -f terrastore-install.xml single-master -Dinstall.dir=/path_to_master
+$&gt; ant -f terrastore-install.xml server -Dinstall.dir=/path_to_server</p>
+
+<p>The last command can be repeated for every server to add. </p>
+
+<ul>
+<li>Active/Passive-Master Terrastore cluster installation:</li>
+</ul><p>$&gt; ant -f terrastore-install.xml ha-master-1 -Dinstall.dir=/path_to_master-1
+$&gt; ant -f terrastore-install.xml ha-master-2 -Dinstall.dir=/path_to_master-2
+$&gt; ant -f terrastore-install.xml server -Dinstall.dir=/path_to_server </p>
+
+<p>The last command can be repeated for every server to add.
+The active master will be the first to be started.</p>
+
+<ul>
+<li>Starting master(s) and server(s):</li>
+</ul><p>$path_to_master/bin&gt; sh start.sh
+$path_to_server/bin&gt; sh start.sh --httpPort 8080 --nodePort 6000 --master host:9510</p>
+
+<p>The default master port is 9510 (which can be changed through the
+terrastore-install tool as well).</p>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
