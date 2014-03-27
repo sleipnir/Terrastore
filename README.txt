@@ -12,7 +12,7 @@ Both can be easily installed through the terrastore-install tool.
 
 * Prerequisites:
 
-Java 6.
+Java 7.
 Apache Ant.
 
 * Single-master Terrastore cluster installation:
