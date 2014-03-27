@@ -20,11 +20,13 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
-import terrastore.communication.NodeConfiguration;
+
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.cluster.ensemble.impl.View;
 import terrastore.common.ErrorMessage;
+import terrastore.communication.NodeConfiguration;
 import terrastore.store.Key;
 import terrastore.store.Value;
 import terrastore.store.features.Mapper;
@@ -35,196 +37,198 @@ import terrastore.store.features.Update;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class MsgPackUtils {
 
-    private static final JavaSerializer HELPER = new JavaSerializer();
+    private static final JavaSerializer<Object> HELPER = new JavaSerializer<Object>();
 
     public static void packBoolean(Packer packer, boolean value) throws IOException {
-        packer.packBoolean(value);
+        packer.write(value);
     }
 
     public static void packBytes(Packer packer, byte[] value) throws IOException {
-        packer.packByteArray(value);
+        packer.write(value);
     }
 
     public static void packInt(Packer packer, int value) throws IOException {
-        packer.packInt(value);
+        packer.write(value);
     }
 
     public static void packLong(Packer packer, long value) throws IOException {
-        packer.packLong(value);
+        packer.write(value);
     }
 
     public static void packString(Packer packer, String value) throws IOException {
-        packer.packString(value);
+        packer.write(value);
     }
 
     public static void packKey(Packer packer, Key key) throws IOException {
         if (key != null) {
-            packer.pack(key);
+            packer.write(key);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packValue(Packer packer, Value value) throws IOException {
         if (value != null) {
-            packer.pack(value);
+            packer.write(value);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packErrorMessage(Packer packer, ErrorMessage errorMessage) throws IOException {
         if (errorMessage != null) {
-            packer.pack(errorMessage);
+            packer.write(errorMessage);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packKeys(Packer packer, Set<Key> keys) throws IOException {
         if (keys != null) {
-            packer.packInt(keys.size());
+            packer.write(keys.size());
             for (Key key : keys) {
                 packKey(packer, key);
             }
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packValues(Packer packer, Map<Key, Value> values) throws IOException {
         if (values != null) {
-            packer.packInt(values.size());
+            packer.write(values.size());
             for (Map.Entry<Key, Value> entry : values.entrySet()) {
                 packKey(packer, entry.getKey());
                 packValue(packer, entry.getValue());
             }
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packGenericMap(Packer packer, Map<String, Object> genericMap) throws IOException {
         if (genericMap != null) {
-            packer.pack(HELPER.serialize(genericMap));
+            packer.write(HELPER.serialize(genericMap));
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
-    public static void packGenericSet(Packer packer, Set genericSet) throws IOException {
+    @SuppressWarnings("rawtypes")
+	public static void packGenericSet(Packer packer, Set genericSet) throws IOException {
         if (genericSet != null) {
-            packer.pack(HELPER.serialize(genericSet));
+            packer.write(HELPER.serialize(genericSet));
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packMapper(Packer packer, Mapper mapper) throws IOException {
         if (mapper != null) {
-            packer.pack(mapper);
+            packer.write(mapper);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packReducer(Packer packer, Reducer reducer) throws IOException {
         if (reducer != null) {
-            packer.pack(reducer);
+            packer.write(reducer);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packPredicate(Packer packer, Predicate predicate) throws IOException {
         if (predicate != null) {
-            packer.pack(predicate);
+            packer.write(predicate);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packRange(Packer packer, Range range) throws IOException {
         if (range != null) {
-            packer.pack(range);
+            packer.write(range);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packUpdate(Packer packer, Update update) throws IOException {
         if (update != null) {
-            packer.pack(update);
+            packer.write(update);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packServerConfiguration(Packer packer, NodeConfiguration serverConfiguration) throws IOException {
         if (serverConfiguration != null) {
-            packer.pack(serverConfiguration);
+            packer.write(serverConfiguration);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static void packView(Packer packer, View view) throws IOException {
         if (view != null) {
-            packer.pack(view);
+            packer.write(view);
         } else {
-            packer.packNil();
+            packer.writeNil();
         }
     }
 
     public static boolean unpackBoolean(Unpacker unpacker) throws IOException {
-        return unpacker.unpackBoolean();
+        return unpacker.readBoolean();
     }
 
     public static byte[] unpackBytes(Unpacker unpacker) throws IOException {
-        return unpacker.unpackByteArray();
+        return unpacker.readByteArray();
     }
 
     public static int unpackInt(Unpacker unpacker) throws IOException {
-        return unpacker.unpackInt();
+        return unpacker.readInt();
     }
 
     public static long unpackLong(Unpacker unpacker) throws IOException {
-        return unpacker.unpackLong();
+        return unpacker.readLong();
     }
 
     public static String unpackString(Unpacker unpacker) throws IOException {
-        return unpacker.unpackString();
+        return unpacker.readString();
     }
 
     public static Key unpackKey(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(Key.class);
+            return unpacker.read(Key.class);
         }
     }
 
     public static Value unpackValue(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(Value.class);
+            return unpacker.read(Value.class);
         }
     }
 
     public static ErrorMessage unpackErrorMessage(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(ErrorMessage.class);
+            return unpacker.read(ErrorMessage.class);
         }
     }
 
     public static Set<Key> unpackKeys(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
             int size = unpackInt(unpacker);
@@ -237,7 +241,7 @@ public class MsgPackUtils {
     }
 
     public static Map<Key, Value> unpackValues(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
             int size = unpackInt(unpacker);
@@ -249,75 +253,77 @@ public class MsgPackUtils {
         }
     }
 
-    public static Map<String, Object> unpackGenericMap(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+    @SuppressWarnings("unchecked")
+	public static Map<String, Object> unpackGenericMap(Unpacker unpacker) throws IOException {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return (Map<String, Object>) HELPER.deserialize(unpacker.unpackByteArray());
+            return (Map<String, Object>) HELPER.deserialize(unpacker.readByteArray());
         }
     }
 
-    public static Set unpackGenericSet(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+    @SuppressWarnings("rawtypes")
+	public static Set unpackGenericSet(Unpacker unpacker) throws IOException {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return (Set) HELPER.deserialize(unpacker.unpackByteArray());
+            return (Set) HELPER.deserialize(unpacker.readByteArray());
         }
     }
 
     public static Mapper unpackMapper(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(Mapper.class);
+            return unpacker.read(Mapper.class);
         }
     }
 
     public static Reducer unpackReducer(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(Reducer.class);
+            return unpacker.read(Reducer.class);
         }
     }
 
     public static Predicate unpackPredicate(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(Predicate.class);
+            return unpacker.read(Predicate.class);
         }
     }
 
     public static Range unpackRange(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(Range.class);
+            return unpacker.read(Range.class);
         }
     }
 
     public static Update unpackUpdate(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(Update.class);
+            return unpacker.read(Update.class);
         }
     }
 
     public static NodeConfiguration unpackServerConfiguration(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(NodeConfiguration.class);
+            return unpacker.read(NodeConfiguration.class);
         }
     }
 
     public static View unpackView(Unpacker unpacker) throws IOException {
-        if (unpacker.tryUnpackNull()) {
+        if (unpacker.trySkipNil()) {
             return null;
         } else {
-            return unpacker.unpack(View.class);
+            return unpacker.read(View.class);
         }
     }
 }

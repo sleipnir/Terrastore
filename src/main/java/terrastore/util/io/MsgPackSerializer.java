@@ -15,26 +15,33 @@
  */
 package terrastore.util.io;
 
-import com.ning.compress.lzf.LZFInputStream;
-import com.ning.compress.lzf.LZFOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+
+import org.msgpack.MessagePack;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ning.compress.lzf.LZFInputStream;
+import com.ning.compress.lzf.LZFOutputStream;
+
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class MsgPackSerializer<T> implements Serializer<T> {
 
     private static final Logger LOG = LoggerFactory.getLogger(MsgPackSerializer.class);
     //
     private final boolean compressed;
+    
+    private final MessagePack msgpack = new MessagePack();
+
 
     public MsgPackSerializer(boolean compressed) {
         this.compressed = compressed;
@@ -74,9 +81,9 @@ public class MsgPackSerializer<T> implements Serializer<T> {
 
     private void doSerialize(T object, OutputStream stream) {
         try {
-            Packer packer = new Packer(stream);
-            packer.packString(object.getClass().getName());
-            packer.pack(object);
+            Packer packer = msgpack.createPacker(stream);
+            packer.write(object.getClass().getName());
+            packer.write(object);
             stream.flush();
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
@@ -92,9 +99,9 @@ public class MsgPackSerializer<T> implements Serializer<T> {
 
     private T doDeserialize(InputStream stream) {
         try {
-            Unpacker unpacker = new Unpacker(stream);
-            String className = unpacker.unpackString();
-            return unpacker.unpack((Class<T>) Class.forName(className));
+            Unpacker unpacker = msgpack.createUnpacker(stream);
+            String className = unpacker.readString();
+            return unpacker.read((Class<T>) Class.forName(className));
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
             throw new RuntimeException(ex.getMessage(), ex);
