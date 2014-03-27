@@ -23,19 +23,20 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terracotta.collections.ClusteredMap;
 import org.terracotta.collections.ConcurrentDistributedServerMap;
-import terrastore.internal.tc.TCMaster;
+
 import terrastore.common.ErrorMessage;
 import terrastore.event.EventBus;
 import terrastore.event.impl.ValueChangedEvent;
 import terrastore.event.impl.ValueRemovedEvent;
+import terrastore.internal.tc.TCMaster;
 import terrastore.server.Keys;
 import terrastore.server.Values;
-import terrastore.store.comparators.LexicographicalComparator;
 import terrastore.store.Bucket;
 import terrastore.store.FlushCondition;
 import terrastore.store.FlushStrategy;
@@ -45,14 +46,15 @@ import terrastore.store.SnapshotManager;
 import terrastore.store.SortedSnapshot;
 import terrastore.store.StoreOperationException;
 import terrastore.store.ValidationException;
-import terrastore.store.features.Predicate;
-import terrastore.store.features.Update;
 import terrastore.store.Value;
+import terrastore.store.comparators.LexicographicalComparator;
 import terrastore.store.features.Mapper;
+import terrastore.store.features.Predicate;
+import terrastore.store.features.Range;
+import terrastore.store.features.Update;
+import terrastore.store.operators.Comparator;
 import terrastore.store.operators.Condition;
 import terrastore.store.operators.Function;
-import terrastore.store.features.Range;
-import terrastore.store.operators.Comparator;
 import terrastore.store.operators.OperatorException;
 import terrastore.util.collect.Sets;
 import terrastore.util.collect.Transformer;
@@ -60,6 +62,7 @@ import terrastore.util.concurrent.GlobalExecutor;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class TCBucket implements Bucket {
 

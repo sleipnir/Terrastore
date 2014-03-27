@@ -17,9 +17,12 @@ package terrastore.store.impl;
 
 import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.terracotta.collections.ClusteredMap;
+
 import terrastore.internal.tc.TCMaster;
 import terrastore.store.Key;
 import terrastore.store.LockManager;
