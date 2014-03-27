@@ -15,7 +15,6 @@
  */
 package terrastore.util.collect.parallel;
 
-import com.google.common.collect.Iterables;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,13 +24,17 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.Future;
-import jsr166y.ForkJoinPool;
-import jsr166y.RecursiveAction;
+import java.util.concurrent.RecursiveAction;
+
 import terrastore.util.collect.MergeSet;
+
+import com.google.common.collect.Iterables;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class ParallelUtils {
 
