@@ -15,17 +15,21 @@
  */
 package terrastore.util.io;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
+
 import org.junit.Test;
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import static org.junit.Assert.*;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class MsgPackSerializerTest {
 
@@ -50,7 +54,7 @@ public class MsgPackSerializerTest {
         assertEquals(obj, deserialized);
     }
 
-    public static class TestObject implements MessagePackable, MessageUnpackable {
+    public static class TestObject implements MessagePackable {
 
         private String data;
 
@@ -67,12 +71,12 @@ public class MsgPackSerializerTest {
         }
 
         @Override
-        public void messagePack(Packer packer) throws IOException {
+        public void writeTo(Packer packer) throws IOException {
             MsgPackUtils.packString(packer, data);
         }
 
         @Override
-        public void messageUnpack(Unpacker unpckr) throws IOException, MessageTypeException {
+        public void readFrom(Unpacker unpckr) throws IOException, MessageTypeException {
             data = MsgPackUtils.unpackString(unpckr);
         }
     }
