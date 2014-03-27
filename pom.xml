@@ -5,13 +5,24 @@
 	<groupId>terrastore</groupId>
 	<artifactId>terrastore</artifactId>
 	<packaging>jar</packaging>
-	<version>0.8.3-SNAPSHOT</version>
+	<version>0.8.5-SNAPSHOT</version>
 	<name>terrastore</name>
+
+	<properties>
+		<!-- Configuration -->
+		<java.version>1.7</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
 	<scm>
-		<connection>scm:hg:https://code.google.com/p/terrastore/</connection>
-		<developerConnection>scm:hg:https://code.google.com/p/terrastore/</developerConnection>
+		<url>https://github.com/sleipnir/Terrastore</url>
+		<connection>scm:git:git://github.com/sleipnir/Terrastore.git</connection>
+		<developerConnection>scm:git:git@github.com/sleipnir/Terrastore.git</developerConnection>
 	</scm>
+
 	<dependencies>
+		<!-- Serializer -->
 		<dependency>
 			<groupId>org.msgpack</groupId>
 			<artifactId>msgpack</artifactId>
@@ -23,6 +34,8 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- Queue ActiveMQ -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-core</artifactId>
@@ -45,16 +58,13 @@
 			<version>5.4.1</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- <dependency>
-			<groupId>jsr166y</groupId>
-			<artifactId>jsr166y</artifactId>
-			<version>20100604</version>
-		</dependency> -->
 		<dependency>
 			<groupId>org.fusesource.hawtdb</groupId>
 			<artifactId>hawtdb</artifactId>
 			<version>1.6</version>
 		</dependency>
+
+		<!-- Utilities -->
 		<dependency>
 			<groupId>args4j</groupId>
 			<artifactId>args4j</artifactId>
@@ -65,26 +75,15 @@
 			<artifactId>scannotation</artifactId>
 			<version>1.0.3</version>
 		</dependency>
+
+		<!-- IO Netty -->
 		<dependency>
 			<groupId>org.jboss.netty</groupId>
 			<artifactId>netty</artifactId>
 			<version>3.2.3.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.resteasy</groupId>
-			<artifactId>jaxrs-api</artifactId>
-			<version>2.1.0.GA</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-simple</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jcl-over-slf4j</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
+		<!-- JaxRS / RestEasy -->
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
@@ -120,6 +119,23 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>jaxrs-api</artifactId>
+			<version>2.1.0.GA</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-simple</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>jcl-over-slf4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- Spring -->
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>3.0.5.RELEASE</version>
@@ -144,11 +160,15 @@
 			<artifactId>spring-jms</artifactId>
 			<version>3.0.5.RELEASE</version>
 		</dependency>
+
+		<!-- Jackson json processor -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.7.2</version>
 		</dependency>
+
+		<!-- Log -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
@@ -173,75 +193,6 @@
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>0.9.26</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-jxpath</groupId>
-			<artifactId>commons-jxpath</artifactId>
-			<version>1.3</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>r09</version>
-		</dependency>
-		<dependency>
-			<groupId>org.terracotta</groupId>
-			<artifactId>terracotta-toolkit-1.3-runtime</artifactId>
-			<version>3.6.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.terracotta.toolkit</groupId>
-			<artifactId>terracotta-toolkit-1.3-impl</artifactId>
-			<version>3.6.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.terracotta.toolkit</groupId>
-			<artifactId>terracotta-toolkit-1.3-api</artifactId>
-			<version>3.6.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty</artifactId>
-			<version>6.1.22</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>start</artifactId>
-			<version>6.1.22</version>
-		</dependency>
-		<dependency>
-			<groupId>com.ning</groupId>
-			<artifactId>compress-lzf</artifactId>
-			<version>0.6.0</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>2.5.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymockclassextension</artifactId>
-			<version>2.5.2</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -273,7 +224,89 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- Commons -->
+		<dependency>
+			<groupId>commons-jxpath</groupId>
+			<artifactId>commons-jxpath</artifactId>
+			<version>1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+		</dependency>
+
+		<!-- Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>r09</version>
+		</dependency>
+
+		<!-- Terracotta -->
+		<dependency>
+			<groupId>org.terracotta</groupId>
+			<artifactId>terracotta-toolkit-1.3-runtime</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.terracotta.toolkit</groupId>
+			<artifactId>terracotta-toolkit-1.3-impl</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.terracotta.toolkit</groupId>
+			<artifactId>terracotta-toolkit-1.3-api</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+
+		<!-- Jetty -->
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty</artifactId>
+			<version>6.1.22</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>start</artifactId>
+			<version>6.1.22</version>
+		</dependency>
+
+		<!-- Compress utilities -->
+		<dependency>
+			<groupId>com.ning</groupId>
+			<artifactId>compress-lzf</artifactId>
+			<version>0.6.0</version>
+		</dependency>
+
+		<!-- Tests -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>2.5.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymockclassextension</artifactId>
+			<version>2.5.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
+	
 	<profiles>
 		<profile>
 			<id>test</id>
@@ -490,10 +523,12 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
+					<compilerVersion>1.7</compilerVersion>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -551,6 +586,7 @@
 					<properties>
 						<year>2009 - 2011</year>
 						<owner>Sergio Bossa (sergio.bossa@gmail.com)</owner>
+						<maintainer>Adriano Santos (sleipnir@bsd.com.br)</maintainer>
 					</properties>
 					<encoding>UTF-8</encoding>
 					<includes>
@@ -561,6 +597,7 @@
 			<plugin>
 				<groupId>org.terracotta.maven.plugins</groupId>
 				<artifactId>tc-maven-plugin</artifactId>
+				<version>1.9.4</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.terracotta</groupId>
@@ -586,23 +623,23 @@
 	</build>
 	<repositories>
 		<repository>
-			<id>terrastore-repository</id>
-			<url>http://m2.terrastore.googlecode.com/hg/repo</url>
+			<id>terracotta-snapshots</id>
+			<url>http://www.terracotta.org/download/reflector/snapshots/</url>
 			<releases>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 		<repository>
-			<id>terracotta-repository</id>
+			<id>terracotta-releases</id>
 			<url>http://www.terracotta.org/download/reflector/releases</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>true</enabled>
+				<enabled>false</enabled>
 			</snapshots>
 		</repository>
 		<repository>
