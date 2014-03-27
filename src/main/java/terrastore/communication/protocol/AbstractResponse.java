@@ -16,18 +16,20 @@
 package terrastore.communication.protocol;
 
 import java.io.IOException;
+
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.common.ErrorMessage;
 import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public abstract class AbstractResponse<R> implements Response<R>, MessagePackable, MessageUnpackable {
+public abstract class AbstractResponse<R> implements Response<R>, MessagePackable {
 
     private String correlationId;
     private ErrorMessage error;
@@ -57,14 +59,14 @@ public abstract class AbstractResponse<R> implements Response<R>, MessagePackabl
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         MsgPackUtils.packString(packer, correlationId);
         MsgPackUtils.packErrorMessage(packer, error);
         doSerialize(packer);
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         correlationId = MsgPackUtils.unpackString(unpacker);
         error = MsgPackUtils.unpackErrorMessage(unpacker);
         doDeserialize(unpacker);

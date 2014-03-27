@@ -18,17 +18,19 @@ package terrastore.store;
 import java.io.IOException;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public class Key implements Comparable<Key>, MessagePackable, MessageUnpackable, Serializable {
+public class Key implements Comparable<Key>, MessagePackable, Serializable {
 
     private static final long serialVersionUID = 12345678901L;
     private static final Charset CHARSET = Charset.forName("UTF-8");
@@ -47,12 +49,12 @@ public class Key implements Comparable<Key>, MessagePackable, MessageUnpackable,
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         MsgPackUtils.packString(packer, key);
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         key = MsgPackUtils.unpackString(unpacker);
     }
 

@@ -17,9 +17,11 @@ package terrastore.communication.protocol;
 
 import java.io.IOException;
 import java.util.Set;
+
 import org.msgpack.MessageTypeException;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.communication.CommunicationException;
 import terrastore.communication.Node;
 import terrastore.communication.ProcessingException;
@@ -30,6 +32,7 @@ import terrastore.store.StoreOperationException;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class GetBucketsCommand extends AbstractCommand<Set<String>> {
 

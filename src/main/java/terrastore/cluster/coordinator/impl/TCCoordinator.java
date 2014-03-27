@@ -31,23 +31,24 @@ import org.terracotta.cluster.ClusterListener;
 import org.terracotta.cluster.ClusterNode;
 import org.terracotta.cluster.ClusterTopology;
 import org.terracotta.collections.ClusteredMap;
+
 import terrastore.cluster.ClusterUtils;
-import terrastore.communication.Node;
 import terrastore.cluster.coordinator.Coordinator;
-import terrastore.communication.NodeConfiguration;
-import terrastore.communication.ProcessingException;
 import terrastore.cluster.ensemble.EnsembleConfiguration;
+import terrastore.cluster.ensemble.EnsembleManager;
 import terrastore.communication.Cluster;
 import terrastore.communication.LocalNodeFactory;
+import terrastore.communication.Node;
+import terrastore.communication.NodeConfiguration;
+import terrastore.communication.ProcessingException;
 import terrastore.communication.RemoteNodeFactory;
-import terrastore.router.MissingRouteException;
-import terrastore.store.FlushCondition;
-import terrastore.store.FlushStrategy;
 import terrastore.communication.local.LocalProcessor;
 import terrastore.communication.remote.RemoteProcessor;
-import terrastore.cluster.ensemble.EnsembleManager;
 import terrastore.internal.tc.TCMaster;
+import terrastore.router.MissingRouteException;
 import terrastore.router.Router;
+import terrastore.store.FlushCondition;
+import terrastore.store.FlushStrategy;
 import terrastore.store.LockManager;
 import terrastore.store.Store;
 import terrastore.util.concurrent.GlobalExecutor;
@@ -56,6 +57,7 @@ import terrastore.util.io.Serializer;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 // TODO: implement cancellation of unused locks previously held by dead nodes.
 // TODO: implement cancellation of unused connection table entries previously held by dead nodes.

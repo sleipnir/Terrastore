@@ -19,9 +19,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.msgpack.MessageTypeException;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.communication.CommunicationException;
 import terrastore.communication.ProcessingException;
 import terrastore.router.MissingRouteException;
@@ -34,6 +36,7 @@ import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class ReduceCommand extends AbstractCommand<Value> {
 

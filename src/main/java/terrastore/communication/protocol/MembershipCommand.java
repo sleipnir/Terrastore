@@ -18,14 +18,16 @@ package terrastore.communication.protocol;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+
 import org.msgpack.MessageTypeException;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
+import terrastore.cluster.ensemble.impl.View;
 import terrastore.communication.Cluster;
+import terrastore.communication.CommunicationException;
 import terrastore.communication.Node;
 import terrastore.communication.ProcessingException;
-import terrastore.cluster.ensemble.impl.View;
-import terrastore.communication.CommunicationException;
 import terrastore.router.MissingRouteException;
 import terrastore.router.Router;
 import terrastore.store.Store;
@@ -33,6 +35,7 @@ import terrastore.store.StoreOperationException;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class MembershipCommand extends AbstractCommand<View> {
 

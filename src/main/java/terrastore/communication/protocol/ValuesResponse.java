@@ -17,15 +17,18 @@ package terrastore.communication.protocol;
 
 import java.io.IOException;
 import java.util.Map;
+
 import org.msgpack.MessageTypeException;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.store.Key;
 import terrastore.store.Value;
 import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class ValuesResponse extends AbstractResponse<Map<Key, Value>> {
 

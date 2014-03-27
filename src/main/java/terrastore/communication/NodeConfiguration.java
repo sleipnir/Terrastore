@@ -21,20 +21,22 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.util.Set;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.util.collect.Sets;
 import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public class NodeConfiguration implements MessagePackable, MessageUnpackable, Serializable {
+public class NodeConfiguration implements MessagePackable, Serializable {
 
     private static final long serialVersionUID = 12345678901L;
     //
@@ -87,7 +89,7 @@ public class NodeConfiguration implements MessagePackable, MessageUnpackable, Se
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         MsgPackUtils.packString(packer, name);
         MsgPackUtils.packString(packer, nodeBindHost);
         MsgPackUtils.packString(packer, nodePublishHosts);
@@ -97,7 +99,7 @@ public class NodeConfiguration implements MessagePackable, MessageUnpackable, Se
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         name = MsgPackUtils.unpackString(unpacker);
         nodeBindHost = MsgPackUtils.unpackString(unpacker);
         nodePublishHosts = MsgPackUtils.unpackString(unpacker);

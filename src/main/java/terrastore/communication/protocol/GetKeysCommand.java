@@ -18,9 +18,11 @@ package terrastore.communication.protocol;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
+
 import org.msgpack.MessageTypeException;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.communication.CommunicationException;
 import terrastore.communication.Node;
 import terrastore.communication.ProcessingException;
@@ -34,6 +36,7 @@ import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class GetKeysCommand extends AbstractCommand<Set<Key>> {
 

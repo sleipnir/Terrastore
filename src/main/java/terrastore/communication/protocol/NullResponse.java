@@ -16,13 +16,16 @@
 package terrastore.communication.protocol;
 
 import java.io.IOException;
+
 import org.msgpack.MessageTypeException;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.common.ErrorMessage;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class NullResponse extends AbstractResponse {
 

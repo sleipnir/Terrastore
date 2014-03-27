@@ -17,13 +17,14 @@ package terrastore.store.features;
 
 import java.io.IOException;
 import java.io.Serializable;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.util.io.MsgPackUtils;
 
 /**
@@ -33,8 +34,9 @@ import terrastore.util.io.MsgPackUtils;
  * The predicate can be empty, meaning there's no condition to evaluate.
  *
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public class Predicate implements MessagePackable, MessageUnpackable, Serializable {
+public class Predicate implements MessagePackable, Serializable {
 
     private static final long serialVersionUID = 12345678901L;
     //
@@ -74,14 +76,14 @@ public class Predicate implements MessagePackable, MessageUnpackable, Serializab
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         MsgPackUtils.packBoolean(packer, empty);
         MsgPackUtils.packString(packer, conditionType);
         MsgPackUtils.packString(packer, conditionExpression);
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         empty = MsgPackUtils.unpackBoolean(unpacker);
         conditionType = MsgPackUtils.unpackString(unpacker);
         conditionExpression = MsgPackUtils.unpackString(unpacker);

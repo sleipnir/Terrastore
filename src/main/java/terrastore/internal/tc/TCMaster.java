@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.terracotta.api.ClusteringToolkitExtension;
@@ -45,6 +46,7 @@ import org.terracotta.util.TerracottaAtomicLong;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class TCMaster {
 

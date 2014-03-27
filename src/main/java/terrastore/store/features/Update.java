@@ -18,21 +18,23 @@ package terrastore.store.features;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.util.io.MsgPackUtils;
 
 /**
  * Update object carrying data about the update function, timeout and parameters.
  *
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public class Update implements MessagePackable, MessageUnpackable, Serializable {
+public class Update implements MessagePackable, Serializable {
 
     private static final long serialVersionUID = 12345678901L;
     //
@@ -62,14 +64,14 @@ public class Update implements MessagePackable, MessageUnpackable, Serializable 
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         MsgPackUtils.packString(packer, functionName);
         MsgPackUtils.packLong(packer, timeoutInMillis);
         MsgPackUtils.packGenericMap(packer, parameters);
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         functionName = MsgPackUtils.unpackString(unpacker);
         timeoutInMillis = MsgPackUtils.unpackLong(unpacker);
         parameters = MsgPackUtils.unpackGenericMap(unpacker);

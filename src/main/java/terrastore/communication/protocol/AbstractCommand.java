@@ -16,17 +16,19 @@
 package terrastore.communication.protocol;
 
 import java.io.IOException;
+
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public abstract class AbstractCommand<R> implements Command, MessagePackable, MessageUnpackable {
+public abstract class AbstractCommand<R> implements Command, MessagePackable {
 
     protected String id = "NULL";
 
@@ -39,7 +41,7 @@ public abstract class AbstractCommand<R> implements Command, MessagePackable, Me
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         if (id == null) {
             throw new IOException("Trying to serialize a command with no id!");
         } else {
@@ -49,7 +51,7 @@ public abstract class AbstractCommand<R> implements Command, MessagePackable, Me
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         id = MsgPackUtils.unpackString(unpacker);
         doDeserialize(unpacker);
 

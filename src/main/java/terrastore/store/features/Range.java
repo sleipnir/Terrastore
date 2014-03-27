@@ -17,13 +17,14 @@ package terrastore.store.features;
 
 import java.io.IOException;
 import java.io.Serializable;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.store.Key;
 import terrastore.util.io.MsgPackUtils;
 
@@ -31,8 +32,9 @@ import terrastore.util.io.MsgPackUtils;
  * Range object carrying data about range queries.
  *
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public class Range implements MessagePackable, MessageUnpackable, Serializable {
+public class Range implements MessagePackable, Serializable {
 
     private static final long serialVersionUID = 12345678901L;
     //
@@ -78,7 +80,7 @@ public class Range implements MessagePackable, MessageUnpackable, Serializable {
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         MsgPackUtils.packKey(packer, startKey);
         MsgPackUtils.packKey(packer, endKey);
         MsgPackUtils.packInt(packer, limit);
@@ -87,7 +89,7 @@ public class Range implements MessagePackable, MessageUnpackable, Serializable {
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         startKey = MsgPackUtils.unpackKey(unpacker);
         endKey = MsgPackUtils.unpackKey(unpacker);
         limit = MsgPackUtils.unpackInt(unpacker);

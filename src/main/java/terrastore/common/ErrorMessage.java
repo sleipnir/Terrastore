@@ -16,17 +16,19 @@
 package terrastore.common;
 
 import java.io.IOException;
+
 import org.msgpack.MessagePackable;
 import org.msgpack.MessageTypeException;
-import org.msgpack.MessageUnpackable;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
-public class ErrorMessage implements MessagePackable, MessageUnpackable {
+public class ErrorMessage implements MessagePackable {
 
     public static final int BAD_REQUEST_ERROR_CODE = 400;
     public static final int FORBIDDEN_ERROR_CODE = 403;
@@ -82,7 +84,7 @@ public class ErrorMessage implements MessagePackable, MessageUnpackable {
     }
 
     @Override
-    public void messagePack(Packer packer) throws IOException {
+    public void writeTo(Packer packer) throws IOException {
         MsgPackUtils.packInt(packer, code);
         if (message != null) {
             MsgPackUtils.packString(packer, message);
@@ -90,7 +92,7 @@ public class ErrorMessage implements MessagePackable, MessageUnpackable {
     }
 
     @Override
-    public void messageUnpack(Unpacker unpacker) throws IOException, MessageTypeException {
+    public void readFrom(Unpacker unpacker) throws IOException, MessageTypeException {
         code = MsgPackUtils.unpackInt(unpacker);
         message = MsgPackUtils.unpackString(unpacker);
     }

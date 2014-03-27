@@ -16,9 +16,11 @@
 package terrastore.communication.protocol;
 
 import java.io.IOException;
+
 import org.msgpack.MessageTypeException;
-import org.msgpack.Packer;
-import org.msgpack.Unpacker;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+
 import terrastore.communication.CommunicationException;
 import terrastore.communication.Node;
 import terrastore.communication.ProcessingException;
@@ -33,6 +35,7 @@ import terrastore.util.io.MsgPackUtils;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class MergeCommand extends AbstractCommand<Value> {
 
