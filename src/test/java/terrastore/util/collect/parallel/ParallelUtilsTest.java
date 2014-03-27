@@ -15,7 +15,9 @@
  */
 package terrastore.util.collect.parallel;
 
-import com.google.common.collect.Lists;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -24,14 +26,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import jsr166y.ForkJoinPool;
+import java.util.concurrent.ForkJoinPool;
+
 import org.junit.Test;
 
 import terrastore.util.collect.Sets;
-import static org.junit.Assert.*;
+
+import com.google.common.collect.Lists;
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class ParallelUtilsTest {
 
