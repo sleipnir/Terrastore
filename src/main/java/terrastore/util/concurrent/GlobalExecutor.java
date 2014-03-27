@@ -17,12 +17,14 @@ package terrastore.util.concurrent;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinWorkerThread;
 import java.util.concurrent.ThreadFactory;
-import jsr166y.ForkJoinPool;
-import jsr166y.ForkJoinWorkerThread;
+
 
 /**
  * @author Sergio Bossa
+ * @author Adriano Santos
  */
 public class GlobalExecutor {
 
@@ -91,7 +93,7 @@ public class GlobalExecutor {
                 return t;
             }
 
-        });
+        }, null, false);
     }
 
 }
